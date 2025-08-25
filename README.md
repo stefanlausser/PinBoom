@@ -21,7 +21,7 @@ Das System besteht aus **zwei getrennten Steuerungen**, die zusammenarbeiten:
 ## 📂 Projektstruktur
 
 ```
-PinBoom-Control-System/
+PinBoom/
 │
 ├── README.md # Projektübersicht
 │
