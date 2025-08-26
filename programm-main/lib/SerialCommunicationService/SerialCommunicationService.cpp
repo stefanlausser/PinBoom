@@ -16,7 +16,7 @@ void SerialCommunicationService::sendData(const byte data) {
 
 byte SerialCommunicationService::receiveData() {
     if(Serial.available() == 0) {
-        return NULL; // No data available
+        return 0x00; // No data available
     }
     return Serial.read();
 }

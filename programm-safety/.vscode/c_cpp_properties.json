@@ -8,10 +8,10 @@
         {
             "name": "PlatformIO",
             "includePath": [
-                "C:/Users/lausn/Documents/PlatformIO/Projects/programm-main/include",
-                "C:/Users/lausn/Documents/PlatformIO/Projects/programm-main/src",
-                "C:/Users/lausn/Documents/PlatformIO/Projects/programm-main/lib/Variablen",
-                "C:/Users/lausn/Documents/PlatformIO/Projects/programm-main/lib/SerialCommunicationService",
+                "C:/Users/lausn/Documents/PlatformIO/Projects/programm-safety/include",
+                "C:/Users/lausn/Documents/PlatformIO/Projects/programm-safety/src",
+                "C:/Users/lausn/Documents/PlatformIO/Projects/programm-safety/lib/Variablen",
+                "C:/Users/lausn/Documents/PlatformIO/Projects/programm-safety/lib/SerialCommunicationService",
                 "C:/Users/lausn/.platformio/packages/framework-arduino-avr/cores/arduino",
                 "C:/Users/lausn/.platformio/packages/framework-arduino-avr/variants/standard",
                 "C:/Users/lausn/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
@@ -24,10 +24,10 @@
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-                    "C:/Users/lausn/Documents/PlatformIO/Projects/programm-main/include",
-                    "C:/Users/lausn/Documents/PlatformIO/Projects/programm-main/src",
-                    "C:/Users/lausn/Documents/PlatformIO/Projects/programm-main/lib/Variablen",
-                    "C:/Users/lausn/Documents/PlatformIO/Projects/programm-main/lib/SerialCommunicationService",
+                    "C:/Users/lausn/Documents/PlatformIO/Projects/programm-safety/include",
+                    "C:/Users/lausn/Documents/PlatformIO/Projects/programm-safety/src",
+                    "C:/Users/lausn/Documents/PlatformIO/Projects/programm-safety/lib/Variablen",
+                    "C:/Users/lausn/Documents/PlatformIO/Projects/programm-safety/lib/SerialCommunicationService",
                     "C:/Users/lausn/.platformio/packages/framework-arduino-avr/cores/arduino",
                     "C:/Users/lausn/.platformio/packages/framework-arduino-avr/variants/standard",
                     "C:/Users/lausn/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",

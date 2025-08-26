@@ -7,7 +7,7 @@ class SerialCommunicationService {
 public:
     SerialCommunicationService();
     void begin(long baudRate);
-    void sendData(const byte data);
+    void sendData(byte data);
     byte receiveData();
 private:
     long _baudRate;

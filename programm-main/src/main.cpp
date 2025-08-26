@@ -11,14 +11,15 @@ void setup() {
 }
 
 void loop() {
+  byte received = serialService.receiveData();
 
-  if(serialService.receiveData() != SYSTEM_STARTED) {
+  if(received == SYSTEM_STARTED) {
     serialService.sendData(CONFIRMATION);
   }
-  if(serialService.receiveData() == NOTAUS_TRIGGERED) {
+  if(received == NOTAUS_TRIGGERED) {
     notausState = true;
   }
-  if(serialService.receiveData() == NOTAUS_OK) {
+  if(received == NOTAUS_OK) {
     notausState = false;
   }
 

@@ -18,16 +18,16 @@ digitalWrite(Q2, LOW);
 do
 {
   serialService.sendData(SYSTEM_STARTED);
-  lastCommunicationTime = millis();
+  sentCommunicationTime = millis();
   while (serialService.receiveData() != CONFIRMATION)
   {
-    if (millis()-lastCommunicationTime>MAX_UPDATE_INTERVAL)
+    if (millis()-sentCommunicationTime>MAX_UPDATE_INTERVAL)
     {
       break;
     }
   }
   
-  latency = millis() - lastCommunicationTime;
+  latency = millis() - sentCommunicationTime;
 
 } while (latency > MAX_LATENCY);
 }
@@ -37,25 +37,30 @@ do
 
 void loop() {
   bool read = digitalRead(NOTAUS);
-  if (read != notausState) {
+  
+  if (read != lastNotausState) {
+    lastNotausState = read;
     lastDebounceTime = millis();
   }
 
   if ((millis() - lastDebounceTime) > DEBOUNCE_DELAY) {
-    if (read != notausState) {
-      notausState = read;
-    }  
+    notausState = read;
   }
 
-  if(notausState == true) {
+  if(serialService.receiveData() == CONFIRMATION) {
+    latency = millis()-sentCommunicationTime;
+  }
+
+  if(!notausState && latency <= MAX_LATENCY && (millis() - sentCommunicationTime) <= MAX_UPDATE_INTERVAL) {
     digitalWrite(Q1, HIGH);
     digitalWrite(Q2, HIGH);
     serialService.sendData(NOTAUS_OK);
-  } else {
+    sentCommunicationTime = millis();
+  }else {
     digitalWrite(Q1, LOW);
     digitalWrite(Q2, LOW);
     serialService.sendData(NOTAUS_TRIGGERED);
+    sentCommunicationTime = millis();
   }
-
 
 }

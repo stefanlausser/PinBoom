@@ -13,8 +13,9 @@ const short MAX_LATENCY = 5;
 
 //Variablen
 extern bool notausState;
+extern bool lastNotausState;
 extern int latency; //in ms
 extern unsigned long lastDebounceTime;
-extern unsigned long lastCommunicationTime;
+extern unsigned long sentCommunicationTime;
 
 #endif
