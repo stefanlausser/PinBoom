@@ -84,7 +84,7 @@ Das System verwendet eine **redundante Steuerung**:
     ```bash
     git clone https://github.com/stefanlausser/PinBoom.git
     ```
-2. Serielle Schnittstelle zwischen den Arduinos trennen
+2. **Serielle Schnittstelle zwischen den Arduinos trennen**
    
 3. **Arduino 1 (Main Controller) flashen**
     - Öffne `program-main/src/main.ino` in der Arduino IDE
@@ -103,5 +103,6 @@ Das System verwendet eine **redundante Steuerung**:
 
 ## 📜 Lizenz
 Dieses Projekt steht unter der **MIT-Lizenz**
+
 
 
