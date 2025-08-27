@@ -2,31 +2,21 @@
 #include <SerialCommunicationService.h>
 #include <CommunicationKeys.h>
 #include <Variablen.h>
+#include <InputListener.h>
 
 SerialCommunicationService serialService;
-
+InputListener notausListener(NOTAUS, INPUT_PULLUP);
+InputListener tasterListener(TASTER, INPUT_PULLUP);
 
 void setup() {
+
 serialService.begin(9600);
-pinMode(NOTAUS, INPUT_PULLUP);
-pinMode(TASTER, INPUT_PULLUP)
+
 pinMode(Q1, OUTPUT);
 pinMode(Q2, OUTPUT);
-
 digitalWrite(Q1, LOW);
 digitalWrite(Q2, LOW);
 
-while(!Systemstarted)
-  bool read = digitalRead(Taster);
-
-  if(read != Systemstarted){
-    lastDebounceTime = millis();
-    Systemstarted = read;
-  }
-
-  if((millis()-lastDebounceTime)>=DEBOUNCE_DELAY && read == Systemstarted){
-    break;
-  }
 
 do
 {
@@ -49,15 +39,9 @@ do
 
 
 void loop() {
-  bool read = digitalRead(NOTAUS);
-  
-  if (read != lastNotausState) {
-    lastNotausState = read;
-    lastDebounceTime = millis();
-  }
-
-  if ((millis() - lastDebounceTime) > DEBOUNCE_DELAY) {
-    notausState = read;
+  notausState = notausListener.readInput();
+  if(tasterListener.isPressedEdge()){
+    Systemstarted = !Systemstarted;
   }
 
   if(serialService.receiveData() == CONFIRMATION) {
@@ -66,15 +50,14 @@ void loop() {
     
   }
 
-  if(!notausState && latency <= MAX_LATENCY && (millis() - receivedCommunicationTime) <= MAX_UPDATE_INTERVAL) {
+  if(!notausState && latency <= MAX_LATENCY && (millis() - receivedCommunicationTime) <= MAX_UPDATE_INTERVAL && Systemstarted) {
     digitalWrite(Q1, HIGH);
     digitalWrite(Q2, HIGH);
-    if(millis() - sentCommunicationTime > UPDATE_INTERVAL) {
+    if(millis() - sentCommunicationTime >= UPDATE_INTERVAL) {
       serialService.sendData(NOTAUS_OK);
       sentCommunicationTime = millis();
     }
-    serialService.sendData(NOTAUS_OK);
-    sentCommunicationTime = millis();
+
   }else {
     digitalWrite(Q1, LOW);
     digitalWrite(Q2, LOW);
