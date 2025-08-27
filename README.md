@@ -82,13 +82,15 @@ Das System verwendet eine **redundante Steuerung**:
 ## ▶️ Installation & Upload
 1. **Repository klonen**
     ```bash
-    git clone https://github.com/deinname/PinBoom-Control-System.git
+    git clone https://github.com/stefanlausser/PinBoom.git
     ```
-2. **Arduino 1 (Main Controller) flashen**
+2. Serielle Schnittstelle zwischen den Arduinos trennen
+   
+3. **Arduino 1 (Main Controller) flashen**
     - Öffne `program-main/src/main.ino` in der Arduino IDE
     - Wähle den passenden Board-Typ & Port
     - Hochladen
-3. **Arduino 2 (Safety Controller) flashen**
+4. **Arduino 2 (Safety Controller) flashen**
     - Öffne `program-safety/src/safety.ino`
     - Hochladen
 
@@ -101,4 +103,5 @@ Das System verwendet eine **redundante Steuerung**:
 
 ## 📜 Lizenz
 Dieses Projekt steht unter der **MIT-Lizenz**
+
 
