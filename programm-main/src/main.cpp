@@ -12,16 +12,22 @@ void setup() {
 
 void loop() {
   byte received = serialService.receiveData();
-
-  if(received == SYSTEM_STARTED) {
-    serialService.sendData(CONFIRMATION);
-  }
-  if(received == NOTAUS_TRIGGERED) {
-    notausState = true;
-  }
-  if(received == NOTAUS_OK) {
-    notausState = false;
-  }
+    switch (received)
+    {
+    case SYSTEM_STARTED:
+      serialService.sendData(CONFIRMATION);
+      break;
+    case NOTAUS_TRIGGERED:
+      notausState = true;
+      serialService.sendData(CONFIRMATION);
+      break;
+    case NOTAUS_OK:
+      notausState = false;
+      serialService.sendData(CONFIRMATION);
+      break;
+    default:
+      break;
+    }
 
   digitalWrite(LED_BUILTIN, notausState ? HIGH : LOW);
 }

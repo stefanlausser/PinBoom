@@ -48,19 +48,27 @@ void loop() {
   }
 
   if(serialService.receiveData() == CONFIRMATION) {
-    latency = millis()-sentCommunicationTime;
+    receivedCommunicationTime = millis();
+    latency = receivedCommunicationTime-sentCommunicationTime;
+    
   }
 
-  if(!notausState && latency <= MAX_LATENCY && (millis() - sentCommunicationTime) <= MAX_UPDATE_INTERVAL) {
+  if(!notausState && latency <= MAX_LATENCY && (millis() - receivedCommunicationTime) <= MAX_UPDATE_INTERVAL) {
     digitalWrite(Q1, HIGH);
     digitalWrite(Q2, HIGH);
+    if(millis() - sentCommunicationTime > UPDATE_INTERVAL) {
+      serialService.sendData(NOTAUS_OK);
+      sentCommunicationTime = millis();
+    }
     serialService.sendData(NOTAUS_OK);
     sentCommunicationTime = millis();
   }else {
     digitalWrite(Q1, LOW);
     digitalWrite(Q2, LOW);
-    serialService.sendData(NOTAUS_TRIGGERED);
-    sentCommunicationTime = millis();
+    if(millis() - sentCommunicationTime > UPDATE_INTERVAL) {
+      serialService.sendData(NOTAUS_TRIGGERED);
+      sentCommunicationTime = millis();
+    }
   }
 
 }
