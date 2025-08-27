@@ -5,6 +5,7 @@
 #define NOTAUS 2
 #define Q1 4
 #define Q2 7
+#define TASTER 8
 
 //Konstanten
 const short DEBOUNCE_DELAY = 50;
@@ -20,5 +21,6 @@ extern unsigned long lastDebounceTime;
 extern unsigned long sentCommunicationTime;
 extern unsigned long receivedCommunicationTime;
 extern unsigned long sendTimer;
+extern bool Systemstarted;
 
 #endif

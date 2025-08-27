@@ -9,11 +9,24 @@ SerialCommunicationService serialService;
 void setup() {
 serialService.begin(9600);
 pinMode(NOTAUS, INPUT_PULLUP);
+pinMode(TASTER, INPUT_PULLUP)
 pinMode(Q1, OUTPUT);
 pinMode(Q2, OUTPUT);
 
 digitalWrite(Q1, LOW);
 digitalWrite(Q2, LOW);
+
+while(!Systemstarted)
+  bool read = digitalRead(Taster);
+
+  if(read != Systemstarted){
+    lastDebounceTime = millis();
+    Systemstarted = read;
+  }
+
+  if((millis()-lastDebounceTime)>=DEBOUNCE_DELAY && read == Systemstarted){
+    break;
+  }
 
 do
 {
