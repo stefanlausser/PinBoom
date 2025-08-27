@@ -75,7 +75,7 @@ Das System verwendet eine **redundante Steuerung**:
   - Der Hauptcontroller erhält ein Sperrsignal.
 - Die Latenz zum Hauptcontroller fällt über 5ms / Verbindung zum Hauptcontroller geht verloren
   - Aktoren werden sofort deaktiviert.
-  - Der Hauptcontroller sperrt sich selbst, bis die Latenz wieder unter 5ms liegt
+  - Der Hauptcontroller sperrt sich (bei Verbindungsverlust selbst), bis die Latenz wieder unter 5ms liegt
 
 ---
 
@@ -101,3 +101,4 @@ Das System verwendet eine **redundante Steuerung**:
 
 ## 📜 Lizenz
 Dieses Projekt steht unter der **MIT-Lizenz**
+
