@@ -40,7 +40,7 @@ do
 
 void loop() {
   notausState = notausListener.readInput();
-  if(tasterListener.isPressedEdge()){
+  if(tasterListener.isPressedEdge() && !notausState){
     Systemstarted = !Systemstarted;
   }
 
@@ -54,15 +54,16 @@ void loop() {
     digitalWrite(Q1, HIGH);
     digitalWrite(Q2, HIGH);
     if(millis() - sentCommunicationTime >= UPDATE_INTERVAL) {
-      serialService.sendData(NOTAUS_OK);
+      serialService.sendData(GO);
       sentCommunicationTime = millis();
     }
 
   }else {
     digitalWrite(Q1, LOW);
     digitalWrite(Q2, LOW);
+    Systemstarted = false;
     if(millis() - sentCommunicationTime > UPDATE_INTERVAL) {
-      serialService.sendData(NOTAUS_TRIGGERED);
+      serialService.sendData(STOP);
       sentCommunicationTime = millis();
     }
   }
