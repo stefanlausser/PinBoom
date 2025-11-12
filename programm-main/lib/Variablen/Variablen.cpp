@@ -1,4 +1,10 @@
-#include <Variablen.h>
+#include <Arduino.h>
+#include "Variablen.h"
 
-bool notausState = true;
+// ===== Globale Zustände =====
+bool NOTAUS = false;
+bool emergencystate = false;
+int currentStep = 0;
+
+// ===== Timer =====
 unsigned long SerialTimer = 0;

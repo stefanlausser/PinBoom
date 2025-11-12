@@ -2,33 +2,48 @@
 #include <SerialCommunicationService.h>
 #include <CommunicationKeys.h>
 #include <Variablen.h>
+#include <Automatic.h>
 
 SerialCommunicationService serialService;
 
 void setup() {
   serialService.begin(9600);
-  pinMode(LED_BUILTIN, OUTPUT);
 }
 
 void loop() {
+ //======= Eingänge lesen =======
+  bool Button = digitalRead(I2);
+  bool ENDSTOP_1 = digitalRead(I3);
+  bool ENDSTOP_2 = digitalRead(I4);
+  bool ENDSTOP_3 = digitalRead(I5);
+//======== Serielle Kommunikation =======
   byte received = serialService.receiveData();
-    switch (received)
+  switch (received)
     {
     case SYSTEM_STARTED:
       serialService.sendData(CONFIRMATION);
       break;
     case NOTAUS_TRIGGERED:
-      notausState = true;
+      NOTAUS = true;
       serialService.sendData(CONFIRMATION);
       break;
     case NOTAUS_OK:
-      notausState = false;
+      NOTAUS = false;
       serialService.sendData(CONFIRMATION);
       break;
     default:
       break;
     }
 
-  digitalWrite(LED_BUILTIN, notausState ? HIGH : LOW);
+  //======= Not-Aus Logik =======
+  if(NOTAUS) emergencystate = true;
+  if(emergencystate && !NOTAUS && Button) emergencystate = false;
+
+  if(emergencystate){
+    motor.emergencyStop();
+  }else{
+    motor.update();
+    automatic_run(Button, ENDSTOP_1, ENDSTOP_2, ENDSTOP_3);
+  }
 }
 
