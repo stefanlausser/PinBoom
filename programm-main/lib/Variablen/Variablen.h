@@ -2,7 +2,6 @@
 #define VARIABLEN_H
 
 #include <Arduino.h>
-#include <Motor.h>
 
 // ===== Pinbelegung =====
 #define I2 2   // Button
@@ -24,6 +23,6 @@ extern unsigned long SerialTimer;
 extern int currentStep;
 
 // ===== Initialisierung =====
-extern Motor motor(O7, O8, O9, I6);
+
 
 #endif

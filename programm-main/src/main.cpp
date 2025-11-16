@@ -2,9 +2,11 @@
 #include <SerialCommunicationService.h>
 #include <CommunicationKeys.h>
 #include <Variablen.h>
-#include <Automatic.h>
+#include <MotorControlService.h>
 
 SerialCommunicationService serialService;
+MotorControlService motorService(O7, O8, O9, A0, A1, A2);
+void handleSerialCommands();
 
 void setup() {
   serialService.begin(9600);
@@ -16,7 +18,27 @@ void loop() {
   bool ENDSTOP_1 = digitalRead(I3);
   bool ENDSTOP_2 = digitalRead(I4);
   bool ENDSTOP_3 = digitalRead(I5);
-//======== Serielle Kommunikation =======
+
+  motorService.update();
+
+  noInterrupts();
+  handleSerialCommands();
+  if(NOTAUS){
+    emergencystate = true;
+    while (true)
+    {
+      handleSerialCommands();
+      if(Button){
+        NOTAUS = false;
+        emergencystate = false;
+        break;
+      }
+    }   
+  }
+}
+
+void handleSerialCommands() {
+  //======== Serielle Kommunikation =======
   byte received = serialService.receiveData();
   switch (received)
     {
@@ -34,16 +56,5 @@ void loop() {
     default:
       break;
     }
-
-  //======= Not-Aus Logik =======
-  if(NOTAUS) emergencystate = true;
-  if(emergencystate && !NOTAUS && Button) emergencystate = false;
-
-  if(emergencystate){
-    motor.emergencyStop();
-  }else{
-    motor.update();
-    automatic_run(Button, ENDSTOP_1, ENDSTOP_2, ENDSTOP_3);
-  }
 }
 
