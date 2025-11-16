@@ -7,6 +7,7 @@
 SerialCommunicationService serialService;
 InputListener notausListener(NOTAUS, INPUT_PULLUP);
 InputListener tasterListener(TASTER, INPUT_PULLUP);
+InputListener motorschutzListener(MOTORSCHUTZ, INPUT_PULLUP);
 
 void setup() {
 
@@ -40,6 +41,7 @@ do
 
 void loop() {
   notausState = notausListener.readInput();
+  motorschutzState = motorschutzListener.readInput();
   if(tasterListener.isPressedEdge() && !notausState){
     Systemstarted = !Systemstarted;
   }
@@ -50,7 +52,7 @@ void loop() {
     
   }
 
-  if(!notausState && latency <= MAX_LATENCY && (millis() - receivedCommunicationTime) <= MAX_UPDATE_INTERVAL && Systemstarted) {
+  if(!notausState && !motorschutzState && latency <= MAX_LATENCY && (millis() - receivedCommunicationTime) <= MAX_UPDATE_INTERVAL && Systemstarted) {
     digitalWrite(Q1, HIGH);
     digitalWrite(Q2, HIGH);
     if(millis() - sentCommunicationTime >= UPDATE_INTERVAL) {
